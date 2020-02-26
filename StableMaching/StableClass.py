@@ -55,7 +55,8 @@ class Stable:
             print(man, "\t", self.men[man][self.men[man][-1]])
 
 
-if __name__ == '__main__':
-    st = Stable()
-    st.checkMatching()
-    st.stabledItems()
+# if __name__ == '__main__':
+    # st = Stable()
+    # st.checkMatching()
+    # st.stabledItems()
+    # pass

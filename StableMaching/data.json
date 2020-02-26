@@ -1,0 +1,12 @@
+[
+  {"Apple":     ["Amy", "Bertha", "Clare","Xavier", "Yancey", "Zeus", [0, -1, -1]],
+  "Microsoft":  ["Amy", "Bertha", "Clare","Xavier", "Yancey", "Zeus", [0, -1, -1]],
+  "Amazon":     ["Amy", "Bertha", "Clare","Xavier", "Yancey", "Zeus", [0, -1, -1]]},
+
+  {"Amy":   ["Apple", "Microsoft", "Amazon", -1],
+  "Bertha": ["Apple", "Amazon", "Microsoft", -1],
+  "Clare":  ["Amazon", "Microsoft", "Apple", -1],
+  "Xavier": ["Amazon", "Apple", "Microsoft", -1],
+  "Yancey": ["Microsoft", "Amazon", "Apple", -1],
+  "Zeus":   ["Microsoft", "Apple", "Amazon", -1]}
+]
