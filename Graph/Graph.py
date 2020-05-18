@@ -4,7 +4,7 @@
 # strongConnectivity -
 # Dijkstra +
 # Prim +
-# Kruskal -
+# Kruskal +
 
 import Heap
 import sys
@@ -56,9 +56,40 @@ class Graph:
         self.MAXINT = sys.maxsize  # positive inf value
         # self.MININT = -sys.maxsize - 1  # negative inf value
 
-    def addEdge(self, u, v):
+        self.weightedGraphList = list()
+        self.weightedGraphDict = dict()
+        self.disjointSet = list()
+        self.MST = []
 
-        self.graph[u].append(v)
+    def addEdge(self, u, v):
+        pass
+
+    def addVertex(self):
+        pass
+
+    def convertDictToList(self):
+
+        header = list(self.weightedGraph.keys())
+
+        self.weightedGraphList.append(list([None] + header))
+        weightedGraphCopy = self.weightedGraph.copy()
+        for item in weightedGraphCopy.keys():
+            for point in weightedGraphCopy.keys():
+                if weightedGraphCopy[item].get(point, None) is None or weightedGraphCopy[item][point] == -1:
+                    weightedGraphCopy[item][point] = 0
+
+        for row in header:
+            temp = []
+
+            for column in header:
+                temp.append(weightedGraphCopy[row][column])
+
+            self.weightedGraphList.append([row] + temp)
+
+        # print(self.weightedGraphList)
+
+    def convertListToDict(self):
+        pass
 
     def dfs(self, graph, node='A', tag=[]):
 
@@ -206,22 +237,42 @@ class Graph:
         for item in self.weightedGraph:
             print(list(self.weightedGraph[item].keys())[0], '\t\t\t', self.weightedGraph[item][item], '\n')
 
-    def utility(self, parent, item):
-        pass
-
-    def union(self):
-        pass
-
     def Kruskal(self):
-        pass
+
+        self.convertDictToList()
+
+        edges = []
+        for item in range(1, len(self.weightedGraphList)):
+
+            for value in range(1, item):
+
+                if self.weightedGraphList[item][value] != 0:
+                    edges.append([self.weightedGraphList[item][value], self.weightedGraphList[item][0],
+                                  self.weightedGraphList[0][value]])
+        edges.sort(key=lambda x: x[0])
+
+        for item in range(1, len(self.weightedGraphList)):
+            self.disjointSet.append(list(self.weightedGraphList[0][item]))
+
+        for edge in edges:
+            checkVertex = [edge[1], edge[2]]
+            index = [ix for ix, row in enumerate(self.disjointSet) for i in row if i in checkVertex]
+
+            if index[0] != index[1]:
+                self.MST.append(edge)
+                self.disjointSet[index[0]].append(self.disjointSet[index[1]][0])
+                del self.disjointSet[index[1]]
+
+        return self.MST
 
 
 if __name__ == "__main__":
     gp = Graph()
+    # gp.convertDictToList()
+    # gp.test()
     # gp.Dijkstra()
     # gp.Prim()
-    # gp.Kruskal()
-    # gp.test()
+    print(gp.Kruskal())
     # result = gp.dfs(gp.graph)
     # result = gp.bfs(gp.graph)
     # result = gp.isBipartite(gp.graph)
